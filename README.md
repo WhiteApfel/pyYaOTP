@@ -19,8 +19,14 @@ python setup.py install
 ```python
 from pyYaOTP import YaOTP
 
-yaotp = YaOTP(pin="<<pin>>", secret="<<secret>>")
+yaotp = YaOTP(pin="<<pin>>", secret="<<secret>>", login="me@asex.space")
 print(yaotp.generate_code())
+
+# QR (Magic) auth
+if yaotp.magic_auth(track_id=input("Track ID >>> ")) is True:
+    print("Success")
+else:
+    print("Error")
 ```
 
 ---

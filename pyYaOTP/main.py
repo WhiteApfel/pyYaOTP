@@ -4,9 +4,12 @@ import hmac
 import struct
 import time
 
+import requests as requests
+
 
 class YaOTP:
-    def __init__(self, pin: str, secret: str):
+    def __init__(self, pin: str, secret: str, login: str = None):
+        self.login = login
         self.key = hashlib.sha256(pin.encode() + self.decode_secret(secret)).digest()
 
     @staticmethod
@@ -42,3 +45,14 @@ class YaOTP:
         )  # max int64
 
         return self.otp_to_yandex(otp)
+
+    async def magic_auth(self, track_id: str, login: str = None) -> bool:
+        response = requests.post(
+            url="https://passport.yandex.ru/auth/otp/magic",
+            data={
+                "track_id": track_id,
+                "login": login or self.login,
+                "otp": self.generate_code(),
+            }
+        )
+        return response.status_code == 200
