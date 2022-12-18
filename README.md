@@ -7,11 +7,11 @@
 ```shall
 python -m pip install pyYaOTP
 # or
-python -m pip install git+https://github.com/WhiteApfel/pyYaOTP.git
+TAG_VERSION=git python -m pip install git+https://github.com/WhiteApfel/pyYaOTP.git
 # or
 git clone https://github.com/WhiteApfel/pyYaOTP.git
 cd pyYaOTP
-python setup.py install
+TAG_VERSION=local python setup.py install
 ```
 
 ## How to use
